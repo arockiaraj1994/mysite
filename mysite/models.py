@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
-from gtk.keysyms import blank
 from django.db.models.fields import IntegerField
 
 
@@ -18,6 +17,15 @@ class Employee(models.Model):
     
     class Meta:
         ordering = ('user',)
+        
+
+class Mentor(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    employee = models.OneToOneField(Employee, on_delete=models.CASCADE)
+    no_of_students = IntegerField() #Student.objects.filter(mentor_id = user.id).count()
+    
+    def __str__(self):
+        return str(self.user.name)
 
 class Student(models.Model):
     name = models.CharField(max_length = 50)
@@ -25,22 +33,16 @@ class Student(models.Model):
     address = models.TextField(blank=True)
     contact_no = models.IntegerField(blank=True)
     employee = models.OneToOneField(Employee, on_delete=models.CASCADE)
+    mentor = models.OneToOneField(Mentor, on_delete=models.CASCADE)
     
     def __str__(self):
         return str(self.first_name) 
     
     class Meta:
-        ordering = ('id',)
-
-class Mentor(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    no_of_students = IntegerField() #Student.objects.filter(mentor_id = user.id).count()
-    
-    def __str__(self):
-        return str(self.user.name) 
+        ordering = ('id',) 
     
 class Attendance(models.Model):
-    student = models.ForeignKey(User, models.CASCADE)
+    student = models.ForeignKey(Student, models.CASCADE)
     subject = models.CharField(max_length=20)
     date = models.DateField(blank=True)
     
@@ -56,6 +58,8 @@ class Attendance(models.Model):
     
     def __str__(self):
         return str(self.subject)
+
+#class Appointment(models.Model):
     
   
 class PersonalInfo(models.Model):
@@ -115,7 +119,7 @@ admin.site.register(Employee)
 admin.site.register(Attendance)
 #admin.site.register(PersonalInfo)
 admin.site.register(Role)
-admin.site.register(Profile)
+#admin.site.register(Profile)
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
