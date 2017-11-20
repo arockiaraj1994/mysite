@@ -1,6 +1,4 @@
 from django.http import HttpResponse
-from . import serializers
-from . import models
 from . import forms
 from django.shortcuts import render
 from django.template import loader, RequestContext

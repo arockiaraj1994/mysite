@@ -57,9 +57,7 @@ class Attendance(models.Model):
     def __str__(self):
         return str(self.subject)
     
-class Appointment(models.Model):
-    
-    
+  
 class PersonalInfo(models.Model):
     user = models.OneToOneField(User)
     name = models.CharField(max_length=50)
