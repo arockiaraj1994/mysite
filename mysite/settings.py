@@ -28,8 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 TEMPLATE_DIRS = (
-                    os.path.join(BASE_DIR,'templates'),
-)
+                    os.path.join(os.path.dirname(__file__),'templates'),
+)                   
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'mysite',
+    'table',
 ]
 
 REST_FRAMEWORK = {

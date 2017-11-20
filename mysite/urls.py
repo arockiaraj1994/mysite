@@ -23,6 +23,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^test/', views.status),
     url(r'^temp/', views.tem),
+    url(r'^user/', views.create_user),
+    url(r'^emp_list/', views.emp_list),
 ]
 
 """from django.conf.urls import url, include

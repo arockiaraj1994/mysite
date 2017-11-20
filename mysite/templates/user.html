@@ -1,0 +1,12 @@
+<form method="post" action="">
+    {% csrf_token %}
+    <b> Basic Info </b>
+    {{ form }}
+    <br>
+    <b> Personal Info </b>
+    {{ form1 }}
+    <br>
+    <b> Role Info </b>
+    {{ form2 }}
+    <input type="submit" value="Create new user account" />
+</form>
